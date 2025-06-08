@@ -16,15 +16,28 @@ class Database:
             self._load_initial_data()
 
     def _load_initial_data(self):
-        """Load IDP data from JSON file into MongoDB"""
+        """Load IDP data from JSON file into MongoDB, extracting only acc and name"""
         try:
             with open('data/DisProt.json', 'r') as file:
                 idp_data = json.load(file)
-                if isinstance(idp_data, list):
-                    self.idp_collection.insert_many(idp_data)
-                else:
-                    self.idp_collection.insert_one(idp_data)
-                print("IDP data loaded successfully!")
+                if isinstance(idp_data, dict) and "data" in idp_data:
+                    # Extract only acc and name from each document
+                    simplified_data = []
+                    for item in idp_data["data"]:
+                        if isinstance(item, dict):
+                            simplified_doc = {
+                                'acc': item.get('acc'),
+                                'name': item.get('name'),
+                                'disprot_id': item.get('disprot_id')
+                            }
+                            if simplified_doc['acc'] and simplified_doc['name'] and simplified_doc['disprot_id']:  
+                                simplified_data.append(simplified_doc)
+                    
+                    # Insert all data at once
+                    if simplified_data:
+                        self.idp_collection.insert_many(simplified_data)
+                        print(f"Loaded {len(simplified_data)} documents successfully!")
+                print("IDP data loading completed!")
         except Exception as e:
             print(f"Error loading IDP data: {str(e)}")
 
@@ -34,7 +47,7 @@ class Database:
 
     def get_idp_by_id(self, idp_id):
         """Retrieve specific IDP data by ID"""
-        return self.idp_collection.find_one({"id": idp_id})
+        return self.idp_collection.find_one({"acc": idp_id})
 
     def search_idp_data(self, query):
         """Search IDP data based on various fields"""
@@ -43,8 +56,7 @@ class Database:
             search_query = {
                 "$or": [
                     {"name": {"$regex": query, "$options": "i"}},
-                    {"description": {"$regex": query, "$options": "i"}},
-                    {"uniprot_id": {"$regex": query, "$options": "i"}}
+                    {"acc": {"$regex": query, "$options": "i"}}
                 ]
             }
         return list(self.idp_collection.find(search_query))
@@ -54,8 +66,7 @@ class Database:
         total = self.idp_collection.count_documents({})
         return {
             "total_entries": total,
-            "unique_proteins": len(self.idp_collection.distinct("uniprot_id")),
-            "disorder_regions": self.idp_collection.count_documents({"type": "disorder"})
+            "unique_proteins": len(self.idp_collection.distinct("acc"))
         }
 
 # Create a database instance

@@ -52,20 +52,20 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    
                                     <th>Name</th>
+                                    <th>disprotID</th>
                                     <th>UniProt ID</th>
                                     <th>Description</th>
-                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for idp in idp_data %}
                                     <tr>
-                                        <td>{{ idp.id }}</td>
                                         <td>{{ idp.name }}</td>
+                                        <td>{{ idp.disprot_id }}</td>
                                         <td>{{ idp.uniprot_id }}</td>
-                                        <td>{{ idp.description[:100] }}...</td>
+                                    
                                         <td>
                                             <a href="{{ url_for('view_idp', idp_id=idp.id) }}" class="btn btn-sm btn-info">View Details</a>
                                         </td>
