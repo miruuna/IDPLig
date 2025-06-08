@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}IDP Data - IDPLig{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="mb-4">IDP-Ligand Data</h1>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Statistics Cards -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Entries</h5>
+                        <p class="card-text display-4">{{ stats.total_entries }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Unique Proteins</h5>
+                        <p class="card-text display-4">{{ stats.unique_proteins }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-3">IDP Data</h5>
+
+                <!-- Search Form -->
+                <form method="GET" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search" placeholder="Search by name, description, or UniProt ID..." value="{{ search_query }}">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+                </form>
+                
+                {% if idp_data %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>UniProt ID</th>
+                                    <th>Description</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for idp in idp_data %}
+                                    <tr>
+                                        <td>{{ idp.id }}</td>
+                                        <td>{{ idp.name }}</td>
+                                        <td>{{ idp.uniprot_id }}</td>
+                                        <td>{{ idp.description[:100] }}...</td>
+                                        <td>
+                                            <a href="{{ url_for('view_idp', idp_id=idp.id) }}" class="btn btn-sm btn-info">View Details</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="card-text">No IDP data found matching your search criteria.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Home - IDPLig{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h1 class="display-4 mb-4">Welcome to IDPLig</h1>
+        <p class="lead">A database of IDPs and Ligands</p>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Data</h5>
+                <p class="card-text">Access the list</p>
+                <a href="{{ url_for('data') }}" class="btn btn-primary">Go to Data</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Home</h5>
+                <p class="card-text">Return to the main page</p>
+                <a href="{{ url_for('home') }}" class="btn btn-primary">Stay Here</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">About</h5>
+                <p class="card-text">Learn more about IDPLig</p>
+                <a href="{{ url_for('about') }}" class="btn btn-primary">About Us</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
