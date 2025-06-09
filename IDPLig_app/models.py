@@ -1,7 +1,6 @@
 from pymongo import MongoClient
 import os
 import json
-from ligands_logic.pdbe_ligands import get_ligand_site_data
 
 class Database:
     def __init__(self):
