@@ -9,3 +9,4 @@ venv/
 mongodb_data/
 .DS_Store
 logs/
+IDPLig_app/data/

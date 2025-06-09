@@ -61,7 +61,7 @@
                                 <tbody>
                                     {% for ligand in idp.ligands %}
                                     <tr>
-                                        <td>{{ ligand.pdb }}</td>
+                                        <td><a href="https://www.rcsb.org/structure/{{ ligand.pdb }}" target="_blank">{{ ligand.pdb }}</a></td>
                                         <td>{{ ligand.ligand_accession}}</td>
                                         <td>{{ ligand.ligand_name }}</td>
                                         <td>{{ ligand.ligand_num_atoms }}</td>
