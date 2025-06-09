@@ -14,13 +14,11 @@
                     <div class="col-md-6">
                         <dl class="row">
                             <dt class="col-sm-4">ID</dt>
-                            <dd class="col-sm-8">{{ idp.id }}</dd>
+                            <dd class="col-sm-8">{{ idp.disprot_id }}</dd>
 
                             <dt class="col-sm-4">UniProt ID</dt>
                             <dd class="col-sm-8">{{ idp.uniprot_id }}</dd>
 
-                            <dt class="col-sm-4">Description</dt>
-                            <dd class="col-sm-8">{{ idp.description }}</dd>
                         </dl>
                     </div>
                     <div class="col-md-6">
@@ -44,6 +42,37 @@
                             {% endif %}
                         </dl>
                     </div>
+                </div>
+
+                <!-- Ligands Section -->
+                <div class="mt-4">
+                    <h5>Ligands</h5>
+                    {% if idp.ligands %}
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>PDB ID</th>
+                                        <th>Ligand ID</th>
+                                        <th>Ligand Name</th>
+                                        <th>Number of Atoms</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for ligand in idp.ligands %}
+                                    <tr>
+                                        <td>{{ ligand.pdb }}</td>
+                                        <td>{{ ligand.ligand_accession}}</td>
+                                        <td>{{ ligand.ligand_name }}</td>
+                                        <td>{{ ligand.ligand_num_atoms }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p>No ligands found for this IDP.</p>
+                    {% endif %}
                 </div>
 
                 <div class="mt-4">

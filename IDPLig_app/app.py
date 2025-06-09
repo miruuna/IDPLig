@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from models import db
 
 app = Flask(__name__)
@@ -41,6 +41,13 @@ def view_idp(idp_id):
     if idp:
         return render_template('idp_details.html', idp=idp)
     flash('IDP not found!', 'danger')
+    return redirect(url_for('data'))
+
+@app.route('/check_data')
+@app.route('/check_data/<uniprot_id>')
+def check_data(uniprot_id=None):
+    """Check data in the database"""
+    db.check_data(uniprot_id)
     return redirect(url_for('data'))
 
 if __name__ == '__main__':

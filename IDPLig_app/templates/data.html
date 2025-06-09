@@ -54,7 +54,7 @@
                                 <tr>
                                     
                                     <th>Name</th>
-                                    <th>disprotID</th>
+                                    <th>DisprotID</th>
                                     <th>UniProt ID</th>
                                     <th>Description</th>
                                 </tr>
@@ -67,7 +67,7 @@
                                         <td>{{ idp.uniprot_id }}</td>
                                     
                                         <td>
-                                            <a href="{{ url_for('view_idp', idp_id=idp.id) }}" class="btn btn-sm btn-info">View Details</a>
+                                            <a href="{{ url_for('view_idp', idp_id=idp.uniprot_id) }}" class="btn btn-sm btn-info">View Details</a>
                                         </td>
                                     </tr>
                                 {% endfor %}
