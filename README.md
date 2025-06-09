@@ -22,8 +22,7 @@ IDPLig is a atabase and web application that combines information about intrinsi
 - **Database**: MongoDB
 - **Containerization**: Docker
 - **Web Server**: Gunicorn
-- **Frontend**: HTML, CSS, JavaScript
-
+- **Frontend**: HTML
 ## Prerequisites
 
 - Python 3.11 or higher
@@ -90,11 +89,7 @@ The web application provides several key features:
 1. Browse IDP entries
 2. Search for specific proteins
 3. View ligand interactions
-4. Access detailed protein information
 
 ## API Endpoints
 
-- `/api/idps` - List all IDP entries
-- `/api/idps/<id>` - Get specific IDP details
-- `/api/ligands` - List all ligands
-- `/api/ligands/<id>` - Get specific ligand details
+TBC
